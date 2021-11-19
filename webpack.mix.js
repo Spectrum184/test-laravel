@@ -1,13 +1,10 @@
 const config = require('./webpack.config');
 const mix = require('laravel-mix');
 require('laravel-mix-eslint');
+const path = require('path');
 
 function resolve(dir) {
-  return path.join(
-    __dirname,
-    '/resources/js',
-    dir
-  );
+  return path.join(__dirname, '/resources/js', dir);
 }
 
 Mix.listen('configReady', webpackConfig => {
@@ -52,9 +49,7 @@ mix
   ])
   .options({
     processCssUrls: false,
-    postCss: [
-      require('autoprefixer'),
-    ],
+    postCss: [require('autoprefixer')],
   });
 
 if (mix.inProduction()) {
@@ -64,9 +59,9 @@ if (mix.inProduction()) {
     mix.eslint();
   }
   // Development settings
-  mix
-    .sourceMaps()
-    .webpackConfig({
-      devtool: 'cheap-eval-source-map', // Fastest for development
-    });
+  mix.sourceMaps().webpackConfig({
+    devtool: 'cheap-eval-source-map', // Fastest for development
+  });
 }
+
+mix.browserSync('http://localhost:8000/');

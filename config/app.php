@@ -123,6 +123,8 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
+    'jwtToken' => env('JWT_SECRET_KEY', 'thanhpro'),
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
@@ -131,7 +133,7 @@ return [
     | The service providers listed here will be automatically loaded on the
     | request to your application. Feel free to add your own services to
     | this array to grant expanded functionality to your applications.
-    |
+    |s
     */
 
     'providers' => [

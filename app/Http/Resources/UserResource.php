@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
@@ -14,6 +15,9 @@ class UserResource extends JsonResource
      */
     public function toArray($request)
     {
+        $payload = array('id' => $this->id, 'iat' => Carbon::now()->timestamp, 'exp' => Carbon::now()->addDay(30)->timestamp);
+        $jwtToken = \Firebase\JWT\JWT::encode($payload, config('app.jwtToken'));
+
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -31,6 +35,7 @@ class UserResource extends JsonResource
                 $this->getAllPermissions()->toArray()
             ),
             'avatar' => 'https://i.pravatar.cc',
+            'jwtToken' => $jwtToken,
         ];
     }
 }
