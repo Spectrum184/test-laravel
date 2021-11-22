@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Laravue\Acl;
 use App\Laravue\Models\Role;
+use Carbon\Carbon;
 
 class UsersTableSeeder extends Seeder
 {
@@ -78,6 +79,12 @@ class UsersTableSeeder extends Seeder
                 'name' => $fullName,
                 'email' => strtolower($name) . '@laravue.dev',
                 'password' => \Illuminate\Support\Facades\Hash::make('laravue'),
+                'username' => strtolower($name),
+                'birthday' => Carbon::now(),
+                'join_date' => Carbon::now(),
+                'gender' => 'male',
+                'address' => 'joso',
+                'avatar' => 'avatar.jpg'
             ]);
 
             $role = Role::findByName($roleName);

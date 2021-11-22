@@ -36,15 +36,19 @@ const mutations = {
   SET_PERMISSIONS: (state, permissions) => {
     state.permissions = permissions;
   },
+  SET_BIRTHDAY: (state, birthday) => {
+    state.birthday = birthday;
+  },
 };
 
 const actions = {
   // user login
   login({ commit }, userInfo) {
-    const { email, password } = userInfo;
+    const { username, password } = userInfo;
     return new Promise((resolve, reject) => {
-      login({ email: email.trim(), password: password })
+      login({ username: username.trim(), password: password })
         .then(response => {
+          console.log(response);
           setLogged('1');
           resolve();
         })
@@ -61,6 +65,7 @@ const actions = {
       getInfo()
         .then(response => {
           const { data } = response;
+          console.log(data);
 
           if (!data) {
             reject('Verification failed, please Login again.');

@@ -12,16 +12,16 @@
         {{ $t('login.title') }}
       </h3>
       <lang-select class="set-language" />
-      <el-form-item prop="email">
+      <el-form-item prop="username">
         <span class="svg-container">
           <svg-icon icon-class="user" />
         </span>
         <el-input
-          v-model="loginForm.email"
-          name="email"
+          v-model="loginForm.username"
+          name="username"
           type="text"
           auto-complete="on"
-          :placeholder="$t('login.email')"
+          :placeholder="$t('login.username')"
         />
       </el-form-item>
       <el-form-item prop="password">
@@ -60,16 +60,16 @@
 
 <script>
 import LangSelect from '@/components/LangSelect';
-import { validEmail } from '@/utils/validate';
+import { validUsername } from '@/utils/validate';
 import { csrf } from '@/api/auth';
 
 export default {
   name: 'Login',
   components: { LangSelect },
   data() {
-    const validateEmail = (rule, value, callback) => {
-      if (!validEmail(value)) {
-        callback(new Error('Please enter the correct email'));
+    const validateUsername = (rule, value, callback) => {
+      if (!validUsername(value)) {
+        callback(new Error('Please enter the correct username'));
       } else {
         callback();
       }
@@ -83,11 +83,13 @@ export default {
     };
     return {
       loginForm: {
-        email: 'admin@laravue.dev',
+        username: 'spectrum184',
         password: 'laravue',
       },
       loginRules: {
-        email: [{ required: true, trigger: 'blur', validator: validateEmail }],
+        username: [
+          { required: true, trigger: 'blur', validator: validateUsername },
+        ],
         password: [
           { required: true, trigger: 'blur', validator: validatePass },
         ],

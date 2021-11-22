@@ -4,6 +4,7 @@ use App\Laravue\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use App\Laravue\Models\Role;
+use Carbon\Carbon;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,26 +19,56 @@ class DatabaseSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'admin@laravue.dev',
             'password' => Hash::make('laravue'),
+            'username' => 'spectrum184',
+            'birthday' => Carbon::now(),
+            'join_date' => Carbon::now(),
+            'gender' => 'male',
+            'address' => 'joso',
+            'avatar' => 'avatar.jpg'
         ]);
         $manager = User::create([
             'name' => 'Manager',
             'email' => 'manager@laravue.dev',
             'password' => Hash::make('laravue'),
+            'username' => 'manager',
+            'birthday' => Carbon::now(),
+            'join_date' => Carbon::now(),
+            'gender' => 'male',
+            'address' => 'joso',
+            'avatar' => 'avatar.jpg'
         ]);
         $editor = User::create([
             'name' => 'Editor',
             'email' => 'editor@laravue.dev',
             'password' => Hash::make('laravue'),
+            'username' => 'editor',
+            'birthday' => Carbon::now(),
+            'join_date' => Carbon::now(),
+            'gender' => 'male',
+            'address' => 'joso',
+            'avatar' => 'avatar.jpg'
         ]);
         $user = User::create([
             'name' => 'User',
             'email' => 'user@laravue.dev',
             'password' => Hash::make('laravue'),
+            'username' => 'user',
+            'birthday' => Carbon::now(),
+            'join_date' => Carbon::now(),
+            'gender' => 'male',
+            'address' => 'joso',
+            'avatar' => 'avatar.jpg'
         ]);
         $visitor = User::create([
             'name' => 'Visitor',
             'email' => 'visitor@laravue.dev',
             'password' => Hash::make('laravue'),
+            'username' => 'visitor',
+            'birthday' => Carbon::now(),
+            'join_date' => Carbon::now(),
+            'gender' => 'male',
+            'address' => 'joso',
+            'avatar' => 'avatar.jpg'
         ]);
 
         $adminRole = Role::findByName(\App\Laravue\Acl::ROLE_ADMIN);

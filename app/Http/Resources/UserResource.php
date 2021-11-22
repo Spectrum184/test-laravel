@@ -22,6 +22,11 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
+            'username' => $this->username,
+            'birthday' => $this->birthday,
+            'join_date' => Carbon::now(),
+            'gender' => $this->gender,
+            'address' => $this->address,
             'roles' => array_map(
                 function ($role) {
                     return $role['name'];
@@ -34,7 +39,7 @@ class UserResource extends JsonResource
                 },
                 $this->getAllPermissions()->toArray()
             ),
-            'avatar' => 'https://i.pravatar.cc',
+            'avatar' => config('app.url') . '/storage/avatar/' . $this->avatar,
             'jwtToken' => $jwtToken,
         ];
     }

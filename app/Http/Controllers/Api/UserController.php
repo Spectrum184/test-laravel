@@ -21,6 +21,7 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 /**
@@ -53,8 +54,8 @@ class UserController extends BaseController
         }
 
         if (!empty($keyword)) {
-            $userQuery->where('name', 'LIKE', '%' . $keyword . '%');
             $userQuery->where('email', 'LIKE', '%' . $keyword . '%');
+            $userQuery->where('username', 'LIKE', '%' . $keyword . '%');
         }
 
         return UserResource::collection($userQuery->paginate($limit));
@@ -87,6 +88,10 @@ class UserController extends BaseController
                 'name' => $params['name'],
                 'email' => $params['email'],
                 'password' => Hash::make($params['password']),
+                'username' => $params['username'],
+                'join_date' => $params['joinDate'],
+                'birthday' => $params['birthday'],
+                'gender' => $params['gender'],
             ]);
             $role = Role::findByName($params['role']);
             $user->syncRoles($role);
@@ -115,6 +120,8 @@ class UserController extends BaseController
      */
     public function update(Request $request, User $user)
     {
+
+
         if ($user === null) {
             return response()->json(['error' => 'User not found'], 404);
         }
@@ -136,14 +143,38 @@ class UserController extends BaseController
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 403);
         } else {
+            $username = $request->get('username');
             $email = $request->get('email');
-            $found = User::where('email', $email)->first();
+            $found = User::where('username', $username)->first();
+            $emailFounded = User::where('email', $email)->first();
             if ($found && $found->id !== $user->id) {
-                return response()->json(['error' => 'Email has been taken'], 403);
+                return response()->json(['error' => 'Username has been taken'], 403);
+            }
+
+            if ($emailFounded) {
+                return response()->json(['error' => 'Email is existed']);
+            }
+
+            //save avatar
+            $avatar = $request->get('avatar');
+            $avatarName = $username . '.' . $avatar->getClientOriginalName();
+
+            if ($avatar != null) {
+                if (!Storage::disk('public')->exists('avatar')) {
+                    Storage::disk('public')->makeDirectory('avatar');
+                }
+
+                $avatar->storeAs('avatar', $avatarName, 'public');
             }
 
             $user->name = $request->get('name');
+            $user->username = $username;
             $user->email = $email;
+            $user->birthday = $request->get('birthday');
+            $user->join_date = $request->get('joinDate');
+            $user->gender = $request->get('gender');
+            $user->address = $request->get('address');
+            $user->avatar = $avatar != null ? $avatarName : "avatar.jpg";
             $user->save();
             return new UserResource($user);
         }
@@ -229,6 +260,8 @@ class UserController extends BaseController
         return [
             'name' => 'required',
             'email' => $isNew ? 'required|email|unique:users' : 'required|email',
+            'username' => $isNew ? 'required|unique:users' : 'required',
+            'birthday' => 'required',
             'roles' => [
                 'required',
                 'array'
