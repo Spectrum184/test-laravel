@@ -63,5 +63,3 @@ if (mix.inProduction()) {
     devtool: 'cheap-eval-source-map', // Fastest for development
   });
 }
-
-mix.browserSync('http://localhost:8000/');

@@ -32,7 +32,7 @@ export default {
     resizeHandler() {
       if (!document.hidden) {
         const isMobile = this.isMobile();
-        store.dispatch('app/toggleDevice', 'mobile');
+        store.dispatch('app/toggleDevice', isMobile ? 'mobile' : 'desktop');
 
         if (isMobile) {
           store.dispatch('app/closeSideBar', { withoutAnimation: true });

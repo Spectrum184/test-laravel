@@ -12,6 +12,12 @@ const state = {
   introduction: '',
   roles: [],
   permissions: [],
+  birthday: '',
+  joinDate: '',
+  address: '',
+  username: '',
+  gender: '',
+  jwtToken: '',
 };
 
 const mutations = {
@@ -39,6 +45,21 @@ const mutations = {
   SET_BIRTHDAY: (state, birthday) => {
     state.birthday = birthday;
   },
+  SET_JOIN_DATE: (state, joinDate) => {
+    state.joinDate = joinDate;
+  },
+  SET_ADDRESS: (state, address) => {
+    state.address = address;
+  },
+  SET_USERNAME: (state, username) => {
+    state.username = username;
+  },
+  SET_GENDER: (state, gender) => {
+    state.gender = gender;
+  },
+  SET_JWT_TOKEN: (state, jwtToken) => {
+    state.jwtToken = jwtToken;
+  },
 };
 
 const actions = {
@@ -48,7 +69,6 @@ const actions = {
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password: password })
         .then(response => {
-          console.log(response);
           setLogged('1');
           resolve();
         })
@@ -65,13 +85,25 @@ const actions = {
       getInfo()
         .then(response => {
           const { data } = response;
-          console.log(data);
 
           if (!data) {
             reject('Verification failed, please Login again.');
           }
 
-          const { roles, name, avatar, introduction, permissions, id } = data;
+          const {
+            roles,
+            name,
+            avatar,
+            introduction,
+            permissions,
+            id,
+            username,
+            address,
+            joinDate,
+            jwtToken,
+            gender,
+            birthday,
+          } = data;
           // roles must be a non-empty array
           if (!roles || roles.length <= 0) {
             reject('getInfo: roles must be a non-null array!');
@@ -83,6 +115,13 @@ const actions = {
           commit('SET_AVATAR', avatar);
           commit('SET_INTRODUCTION', introduction);
           commit('SET_ID', id);
+          commit('SET_GENDER', gender);
+          commit('SET_USERNAME', username);
+          commit('SET_BIRTHDAY', birthday);
+          commit('SET_ADDRESS', address);
+          commit('SET_JOIN_DATE', joinDate);
+          commit('SET_JWT_TOKEN', jwtToken);
+
           resolve(data);
         })
         .catch(error => {

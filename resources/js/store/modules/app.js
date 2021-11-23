@@ -8,7 +8,7 @@ const state = {
       : true,
     withoutAnimation: false,
   },
-  device: 'mobile',
+  device: 'desktop',
   language: getLanguage(),
   size: Cookies.get('size') || 'medium',
 };

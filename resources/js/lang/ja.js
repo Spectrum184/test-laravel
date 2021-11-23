@@ -3,6 +3,7 @@ export default {
     dashboard: 'Dashboard',
     introduction: 'Introduction',
     documentation: 'Documentation',
+    drawing: '図面',
     guide: 'Guide',
     permission: 'Permission',
     pagePermission: 'Page Permission',
@@ -213,5 +214,14 @@ export default {
       visitor:
         'Visitor. Have access to static pages, should not have any writable permission',
     },
+  },
+  placeholder: {
+    productCode: '製品番号を入力してください',
+  },
+  button: {
+    search: '検索',
+  },
+  label: {
+    productCode: '製品番号',
   },
 };

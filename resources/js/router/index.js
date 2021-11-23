@@ -93,6 +93,19 @@ export const constantRoutes = [
     ],
   },
   {
+    path: '/drawing',
+    component: Layout,
+    redirect: '/drawing/index',
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/drawing/index'),
+        name: 'Drawing',
+        meta: { title: 'drawing', icon: 'documentation' },
+      },
+    ],
+  },
+  {
     path: '/documentation',
     component: Layout,
     redirect: '/documentation/index',
@@ -164,7 +177,11 @@ export const asyncRoutes = [
         path: 'index',
         component: () => import('@/views/clipboard/index'),
         name: 'ClipboardDemo',
-        meta: { title: 'clipboardDemo', icon: 'clipboard', roles: ['admin', 'manager', 'editor', 'user'] },
+        meta: {
+          title: 'clipboardDemo',
+          icon: 'clipboard',
+          roles: ['admin', 'manager', 'editor', 'user'],
+        },
       },
     ],
   },
@@ -230,12 +247,13 @@ export const asyncRoutes = [
   { path: '*', redirect: '/404', hidden: true },
 ];
 
-const createRouter = () => new Router({
-  // mode: 'history', // require service support
-  scrollBehavior: () => ({ y: 0 }),
-  base: process.env.MIX_LARAVUE_PATH,
-  routes: constantRoutes,
-});
+const createRouter = () =>
+  new Router({
+    // mode: 'history', // require service support
+    scrollBehavior: () => ({ y: 0 }),
+    base: process.env.MIX_LARAVUE_PATH,
+    routes: constantRoutes,
+  });
 
 const router = createRouter();
 
