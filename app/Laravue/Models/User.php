@@ -2,6 +2,7 @@
 
 namespace App\Laravue\Models;
 
+use App\Sonobe\Models\Department;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
@@ -98,5 +99,14 @@ class User extends Authenticatable
         }
 
         return false;
+    }
+
+    /**
+     * @return void
+     * Create relations with department model 
+     */
+    public function department()
+    {
+        return $this->belongsTo(Department::class, 'department_id');
     }
 }

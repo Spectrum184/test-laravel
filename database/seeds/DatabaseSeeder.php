@@ -4,6 +4,7 @@ use App\Laravue\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use App\Laravue\Models\Role;
+use App\Sonobe\Models\Department;
 use Carbon\Carbon;
 
 class DatabaseSeeder extends Seeder
@@ -15,6 +16,27 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        Department::create([
+            'name' => '管理者',
+            'manager_id' => 1,
+            'department_code' => 'ADMIN',
+        ]);
+        Department::create([
+            'name' => '生産管理',
+            'manager_id' => 2,
+            'department_code' => 'MANAGER',
+        ]);
+        Department::create([
+            'name' => '出荷',
+            'manager_id' => 3,
+            'department_code' => 'SHIPPING',
+        ]);
+        Department::create([
+            'name' => '技術',
+            'manager_id' => 4,
+            'department_code' => 'TECHNICAL',
+        ]);
+
         $admin = User::create([
             'name' => 'Admin',
             'email' => 'admin@laravue.dev',
@@ -24,7 +46,8 @@ class DatabaseSeeder extends Seeder
             'join_date' => Carbon::now(),
             'gender' => 'male',
             'address' => 'joso',
-            'avatar' => 'avatar.jpg'
+            'avatar' => 'avatar.jpg',
+            'department_id' => 1
         ]);
         $manager = User::create([
             'name' => 'Manager',
@@ -35,7 +58,8 @@ class DatabaseSeeder extends Seeder
             'join_date' => Carbon::now(),
             'gender' => 'male',
             'address' => 'joso',
-            'avatar' => 'avatar.jpg'
+            'avatar' => 'avatar.jpg',
+            'department_id' => 1
         ]);
         $editor = User::create([
             'name' => 'Editor',
@@ -46,7 +70,8 @@ class DatabaseSeeder extends Seeder
             'join_date' => Carbon::now(),
             'gender' => 'male',
             'address' => 'joso',
-            'avatar' => 'avatar.jpg'
+            'avatar' => 'avatar.jpg',
+            'department_id' => 1
         ]);
         $user = User::create([
             'name' => 'User',
@@ -57,7 +82,8 @@ class DatabaseSeeder extends Seeder
             'join_date' => Carbon::now(),
             'gender' => 'male',
             'address' => 'joso',
-            'avatar' => 'avatar.jpg'
+            'avatar' => 'avatar.jpg',
+            'department_id' => 2
         ]);
         $visitor = User::create([
             'name' => 'Visitor',
@@ -68,7 +94,8 @@ class DatabaseSeeder extends Seeder
             'join_date' => Carbon::now(),
             'gender' => 'male',
             'address' => 'joso',
-            'avatar' => 'avatar.jpg'
+            'avatar' => 'avatar.jpg',
+            'department_id' => 3
         ]);
 
         $adminRole = Role::findByName(\App\Laravue\Acl::ROLE_ADMIN);

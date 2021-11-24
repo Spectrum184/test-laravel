@@ -14,7 +14,25 @@
           $t('button.search')
         }}</el-button>
       </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="handleRegister">図面登録</el-button>
+      </el-form-item>
     </el-form>
+    <el-table
+      v-if="drawings.length > 0"
+      class="drawing-table"
+      border
+      style="width:80%"
+      :data="drawings"
+      :header-cell-style="{ color: '#303133' }"
+    >
+      <el-table-column prop="Title" label="製品番号" />
+      <el-table-column prop="ExtProdName" label="名称" />
+      <el-table-column prop="ExtChgNo" label="設変" />
+      <el-table-column prop="ExtCustCd" label="得意先" />
+      <el-table-column prop="AddDate" label="登録日" />
+      <el-table-column prop="UpdateDate" label="更新日" />
+    </el-table>
   </div>
 </template>
 
@@ -29,15 +47,14 @@ export default {
         type: 'productCode',
         limit: 50,
       },
-      drawings: [],
+      isRegister: false,
     };
   },
   computed: {
-    ...mapGetters(['jwtToken']),
+    ...mapGetters(['jwtToken', 'drawings']),
   },
   methods: {
     onSubmit() {
-      console.log(this.jwtToken);
       this.$store.dispatch('drawing/getDrawings', {
         keyword: this.formSearch.keyword,
         type: this.formSearch.type,
@@ -45,6 +62,7 @@ export default {
         jwtToken: this.jwtToken,
       });
     },
+    handleRegister() {},
   },
 };
 </script>
@@ -52,6 +70,18 @@ export default {
 <style rel="stylesheet/scss" lang="scss" scoped>
 .drawing {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+
+  &-search {
+    margin: 0 auto;
+  }
+
+  &-table {
+    margin: 0 auto;
+
+    &-header {
+      color: black;
+    }
+  }
 }
 </style>

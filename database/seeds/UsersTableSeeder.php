@@ -84,7 +84,8 @@ class UsersTableSeeder extends Seeder
                 'join_date' => Carbon::now(),
                 'gender' => 'male',
                 'address' => 'joso',
-                'avatar' => 'avatar.jpg'
+                'avatar' => 'avatar.jpg',
+                'department_id' => 4
             ]);
 
             $role = Role::findByName($roleName);

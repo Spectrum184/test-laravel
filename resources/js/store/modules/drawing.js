@@ -19,6 +19,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       getDrawings(data)
         .then(response => {
+          console.log(response);
           commit('SET_LIST_DRAWINGS', response.result);
           resolve();
         })

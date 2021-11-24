@@ -19,12 +19,12 @@ class CreateUsersTable extends Migration
             $table->string('username')->unique();
             $table->string('email')->unique();
             $table->string('name');
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->date('birthday');
             $table->string('avatar')->default('avatar.jpg');
             $table->string('address')->default('常総市');
             $table->string('gender')->default('male');
+            $table->integer('department_id');
             $table->date('join_date')->default(Carbon::now());
             $table->rememberToken();
             $table->timestamps();
