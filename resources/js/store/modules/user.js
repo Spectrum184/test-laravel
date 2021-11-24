@@ -60,6 +60,9 @@ const mutations = {
   SET_JWT_TOKEN: (state, jwtToken) => {
     state.jwtToken = jwtToken;
   },
+  SET_DEPARTMENT: (state, department) => {
+    state.department = department;
+  },
 };
 
 const actions = {
@@ -103,6 +106,7 @@ const actions = {
             jwtToken,
             gender,
             birthday,
+            department,
           } = data;
           // roles must be a non-empty array
           if (!roles || roles.length <= 0) {
@@ -121,6 +125,7 @@ const actions = {
           commit('SET_ADDRESS', address);
           commit('SET_JOIN_DATE', joinDate);
           commit('SET_JWT_TOKEN', jwtToken);
+          commit('SET_DEPARTMENT', department);
 
           resolve(data);
         })

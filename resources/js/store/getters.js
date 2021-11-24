@@ -18,5 +18,6 @@ const getters = {
   drawings: state => state.drawing.drawings,
   drawing: state => state.drawing.drawing,
   jwtToken: state => state.user.jwtToken,
+  department: state => state.user.department,
 };
 export default getters;

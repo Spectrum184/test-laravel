@@ -14,7 +14,7 @@
           $t('button.search')
         }}</el-button>
       </el-form-item>
-      <el-form-item>
+      <el-form-item v-if="checkPermission(['admin', 'manager'], ['ADMIN'])">
         <el-button type="primary" @click="handleRegister">図面登録</el-button>
       </el-form-item>
     </el-form>
@@ -26,6 +26,13 @@
       :data="drawings"
       :header-cell-style="{ color: '#303133' }"
     >
+      <el-table-column label="図面">
+        <template slot-scope="{ row }">
+          <el-button type="primary">
+            <a :href="generateLink(row)" target="_blank">写真</a>
+          </el-button>
+        </template>
+      </el-table-column>
       <el-table-column prop="Title" label="製品番号" />
       <el-table-column prop="ExtProdName" label="名称" />
       <el-table-column prop="ExtChgNo" label="設変" />
@@ -38,6 +45,10 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import checkRoles from '@/utils/role';
+import checkDepartments from '@/utils/department';
+import { SERVER_DRAWING_URL } from '@/utils/link';
+
 export default {
   name: 'Drawing',
   data() {
@@ -63,6 +74,19 @@ export default {
       });
     },
     handleRegister() {},
+    checkPermission(roles, departments) {
+      const hasRole = checkRoles(roles);
+      const hasDepartment = checkDepartments(departments);
+
+      if (hasRole || hasDepartment) {
+        return true;
+      }
+
+      return false;
+    },
+    generateLink(row) {
+      return SERVER_DRAWING_URL + row.FileName + '.' + row.Prefix;
+    },
   },
 };
 </script>

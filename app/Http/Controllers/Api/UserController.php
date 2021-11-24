@@ -92,6 +92,7 @@ class UserController extends BaseController
                 'join_date' => $params['joinDate'],
                 'birthday' => $params['birthday'],
                 'gender' => $params['gender'],
+                'department_id' => $params['department_id']
             ]);
             $role = Role::findByName($params['role']);
             $user->syncRoles($role);
@@ -174,6 +175,7 @@ class UserController extends BaseController
             $user->join_date = $request->get('joinDate');
             $user->gender = $request->get('gender');
             $user->address = $request->get('address');
+            $user->department_id  = $request->get('department_id');
             $user->avatar = $avatar != null ? $avatarName : "avatar.jpg";
             $user->save();
             return new UserResource($user);

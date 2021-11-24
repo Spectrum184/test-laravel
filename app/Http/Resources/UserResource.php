@@ -41,6 +41,7 @@ class UserResource extends JsonResource
             ),
             'avatar' => config('app.url') . '/storage/avatar/' . $this->avatar,
             'jwtToken' => $jwtToken,
+            'department' => $this->department->department_code
         ];
     }
 }
