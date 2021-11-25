@@ -15,7 +15,7 @@ const getters = {
   permissions: state => state.user.permissions,
   permissionRoutes: state => state.permission.routes,
   addRoutes: state => state.permission.addRoutes,
-  drawings: state => state.drawing,
+  drawings: state => state.drawing.drawings,
   jwtToken: state => state.user.jwtToken,
   department: state => state.user.department,
 };

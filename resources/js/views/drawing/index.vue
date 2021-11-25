@@ -22,7 +22,7 @@
       v-if="drawings.length > 0"
       class="drawing-table"
       border
-      style="width:80%"
+      style="width: 80%"
       :data="drawings"
       :header-cell-style="{ color: '#303133' }"
     >
@@ -39,14 +39,35 @@
       <el-table-column prop="ExtCustCd" label="得意先" />
       <el-table-column prop="AddDate" label="登録日" />
       <el-table-column prop="UpdateDate" label="更新日" />
+      <el-table-column
+        v-if="checkPermission(['manager', 'admin'], ['TECHNICAL'])"
+        label="アクション"
+        class="drawing-table-action"
+      >
+        <template slot-scope="{ row }">
+          <el-button
+            type="primary"
+            @click="handleEditDrawing(row)"
+          >編集</el-button>
+          <el-button
+            type="primary"
+            @click="handleEditImage(row)"
+          >編集</el-button>
+          <el-button
+            type="primary"
+            @click="handleDeleteDrawing(row)"
+          >編集</el-button>
+        </template>
+      </el-table-column>
     </el-table>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
 import checkRoles from '@/utils/role';
 import checkDepartments from '@/utils/department';
+
+import { mapGetters } from 'vuex';
 import { SERVER_DRAWING_URL } from '@/utils/link';
 
 export default {
@@ -80,12 +101,21 @@ export default {
 
       if (hasRole || hasDepartment) {
         return true;
+      } else {
+        return false;
       }
-
-      return false;
     },
     generateLink(row) {
       return SERVER_DRAWING_URL + row.FileName + '.' + row.Prefix;
+    },
+    handleEditDrawing(row) {
+      return null;
+    },
+    handleEditImage(row) {
+      return null;
+    },
+    handleDeleteDrawing(row) {
+      return null;
     },
   },
 };
@@ -105,6 +135,10 @@ export default {
 
     &-header {
       color: black;
+    }
+
+    &-action {
+      display: flex;
     }
   }
 }

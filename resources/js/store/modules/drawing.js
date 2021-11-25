@@ -1,10 +1,12 @@
 import { getDrawings } from '@/api/drawing';
 
-const state = [];
+const state = {
+  drawings: [],
+};
 
 const mutations = {
   SET_LIST_DRAWINGS: (state, data) => {
-    state = data;
+    state.drawings = data;
   },
 };
 
