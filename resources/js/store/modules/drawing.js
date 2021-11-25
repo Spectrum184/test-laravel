@@ -1,16 +1,10 @@
 import { getDrawings } from '@/api/drawing';
 
-const state = {
-  drawings: [],
-  drawing: null,
-};
+const state = [];
 
 const mutations = {
   SET_LIST_DRAWINGS: (state, data) => {
-    state.drawings = data;
-  },
-  SET_DRAWING: (state, data) => {
-    state.drawing = data;
+    state = data;
   },
 };
 
@@ -19,7 +13,6 @@ const actions = {
     return new Promise((resolve, reject) => {
       getDrawings(data)
         .then(response => {
-          console.log(response);
           commit('SET_LIST_DRAWINGS', response.result);
           resolve();
         })
